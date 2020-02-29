@@ -62,17 +62,17 @@ function runTableQuery() {
                 listItem.append(
             $("<h2>").text("Table #" + (i + 1)),
             $("<hr>"),
-            $("<h2>").text("ID: " + tableData[i].customerID),
-            $("<h2>").text("Name: " + tableData[i].customerName),
-            $("<h2>").text("Email: " + tableData[i].customerEmail),
-            $("<h2>").text("Phone: " + tableData[i].phoneNumber)
+            $("<h2>").text("Name: " + tableData[i].restaurants_name),
+            $("<h2>").text("Total Tables: " + tableData[i].total_tables),
+            $("<h2>").text("Available Tables: " + tableData[i].available_tables),
+            $("<h2>").text("Waitlist: " + tableData[i].waitlist)
           );
           tableList.append(listItem);
         }
       });
   }
   function runWaitListQuery() {   
-    $.ajax({ url: "/api/waitlist", method: "GET" })
+    $.ajax({ url: "/api/tables", method: "GET" })
       .then(function(waitData) {
         console.log(waitData);
         console.log("------------------------------------");
@@ -82,10 +82,10 @@ function runTableQuery() {
                 listItem.append(
             $("<h2>").text("Table #" + (i + 1)),
             $("<hr>"),
-            $("<h2>").text("ID: " + waitData[i].customerID),
-            $("<h2>").text("Name: " + waitData[i].customerName),
-            $("<h2>").text("Email: " + waitData[i].customerEmail),
-            $("<h2>").text("Phone: " + waitData[i].phoneNumber)
+            $("<h2>").text("Name: " + tableData[i].restaurants_name),
+            $("<h2>").text("Total Tables: " + tableData[i].total_tables),
+            $("<h2>").text("Available Tables: " + tableData[i].available_tables),
+            $("<h2>").text("Waitlist: " + tableData[i].waitlist)
           );
           waitList.append(listItem);
         }
@@ -93,7 +93,7 @@ function runTableQuery() {
   }    
   function clearTable() {
     alert("Clearing...");
-    $.ajax({ url: "/api/clear", method: "POST" }).then(function() {
+    $.ajax({ url: "/api/tables", method: "POST" }).then(function() {
       $("#waitList").empty();
       $("#tableList").empty();
     });
@@ -101,6 +101,7 @@ function runTableQuery() {
   $("#clear").on("click", clearTable);
   runTableQuery();
   runWaitListQuery();
+  
 </script>
 </html>
             </footer>
